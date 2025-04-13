@@ -19,11 +19,23 @@ abcd();
 
 // console.log("X in pqr: ", x);  // It gives error bcs var does not exist in local scope
 
+
+const person = { name: "Prasanta" };
+Object.freeze(person);
+person.name = "Someone Else"; // ❌ No effect
+console.log(person);        //  { name: 'Prasanta' }
+
+
   
 
 /*
     In js when we run any code then first memory is created for variables and functions ---> Memory creation phase
     Then code is executed line by line ---> Code execution phase
+
+    ╔══════════════════════════════════════╗
+     ➡️➡️➡️➡️➡️ Const Section ➡️➡️➡️➡️➡️
+    ╚══════════════════════════════════════╝
+
 
     const ---> Value cannot be reassign. Also Hoisted, but initially i.e. at the memory creation phase it is in the Temporal Dead Zone(TDZ).
     Ans TDZ does not allow veriables to use before it has been declared. So we can't do like, [console.log(accNo); const accNo = "123";]
@@ -63,6 +75,18 @@ abcd();
 
     So yes — once declared and initialized, the variable exits the TDZ.
 
+
+     Const with Object Freezing
+
+    const person = { name: "Prasanta" };
+    Object.freeze(person);
+    person.name = "Someone Else"; // ❌ No effect
+
+
+
+    ╔══════════════════════════════════════╗
+     ➡️➡️➡️➡️➡️ Var   Section ➡️➡️➡️➡️➡️
+    ╚══════════════════════════════════════╝
     For Var:
     1. Memory Creation Phase (a.k.a. "Hoisting Phase")
 
@@ -205,6 +229,22 @@ abcd();
     ➡️ Now x = 10 refers to the outer x (because no new one is created inside pqr).
     🧠 This uses scope chain / lexical scoping to look up the outer x and modify it.
 
+    Again: Overwrite in same scope
+    var x = 1;
+    {
+    var x = 2; // ❗ This overwrites outer x
+    console.log(x); // 2
+    }
+    console.log(x); // 2
+
+    Again: Loop scope problem
+    for (var i = 0; i < 3; i++) {
+        setTimeout(() => console.log(i), 100);
+    }
+    // Output: 3 3 3
+
+
+
 
     When no keyword assign:
     const accNo = 110000215896;     // ✅ Block-scoped, const, cannot be reassigned
@@ -214,7 +254,7 @@ abcd();
 
     city = "Joypur";
     1. It’ll treated as a global variable and stick it onto the global object (window in browser / global in Node.js)."
-    2. This happens even if you’re inside a function!, Unless you're in strict mode, which we’ll get to next.
+    2. This happens even if you’re inside a function!, Unless you're in strict mode, which we’ll get to next.(Always Global)
     3. It’s similar to var (because it attaches to global window ✅), BUT: It’s even more dangerous than var because...
     4. console.log(delete window.city); // ❌ false — can't be deleted
 
@@ -226,5 +266,52 @@ abcd();
     Writable	            ✅ Yes	                  ✅ / ❌ (let / const)	          ✅ Yes
     Configurable (deletable)❌ No	                  ❌ No	                            ✅ Yes
     Safe to use?	        😬 Risky	               ✅ Safe	                         ❌ Dangerous & discouraged
+
+
+
+    ╔══════════════════════════════════════════╗
+     ➡️➡️➡️➡️➡️ Memory Management ➡️➡️➡️➡️➡️
+    ╚══════════════════════════════════════════╝
+
+    🧵 1. Call Stack (Stack Memory)
+
+    Used for:
+
+        Primitive values (number, boolean, undefined, null, string, symbol, bigint)
+
+        Function Execution Contexts
+
+        Fast, but limited in size
+
+    🪣 2. Heap Memory
+
+    Used for:
+
+        Reference types (Object, Array, Function, etc.)
+
+        Dynamic and large, but slower to access
+
+        Managed with Garbage Collection
+
+    Example:
+    let person = { name: "Prasanta" };
+    person (reference) → stored in stack
+    { name: "Prasanta" } → stored in heap
+
+
+    Stack:
+    ┌──────────────────────────┐
+    │ Execution Context (Global)
+    │ ├─ var name = "..."      → value (stack)
+    │ ├─ let email = "..."     → value (stack)
+    │ ├─ const accNo = 110...  → value (stack)
+    │ ├─ person = {...}        → reference to heap
+    └──────────────────────────┘
+
+    Heap:
+    ┌──────────────────────────┐
+    │ { name: "Prasanta" }     ← object for person
+    └──────────────────────────┘
+
     
 */
