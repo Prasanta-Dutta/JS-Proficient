@@ -122,6 +122,47 @@
         - outer = function
 
 
+    ✅ JavaScript is Lexically Scoped:
+    That means:
+    1. The scope of a variable is determined by its position in the source code.
+    2. Functions remember the environment in which they were defined, not where they are called.
+
+--------------------------------------------------------------------------
+    function outer() {
+        let a = "I am a";
+
+        function inner() {
+            console.log(a); // ✅ It can access 'a'
+        }
+
+        return inner;
+    }
+
+    const innerFunc = outer(); // outer runs, returns 'inner'
+    innerFunc(); // still remembers 'a'
+---------------------------------------------------------------------------
+
+
+
+    ❌ JavaScript is not dynamically scoped:
+    In dynamic scope (like some other languages), the scope is based on where the function is called, not defined.
+
+-----------------------------------------------------------------------
+    let a = "Global";                                                 
+
+    function printA() {
+        console.log(a);
+    }
+
+    function execute() {
+        let a = "Local";
+        printA(); // ❗ In dynamic scope, this would print "Local"
+    }
+
+    execute();
+----------------------------------------------------------------------
+
+
 ╔════════════════════════════════╗
  ➡️➡️➡️➡️➡️ Closure ➡️➡️➡️➡️➡️
 ╚════════════════════════════════╝
