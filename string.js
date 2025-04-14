@@ -95,6 +95,13 @@ console.log(typeof email, " ", email);
     x[0] = 'P';
     console.log(x);                 //  o/p ---> hello
 
+--------------------------------------------------------------------------------------------------
+    (x==y)  ---> false
+    (x===y)  ---> false
+    Because here reference is compared, and for x & y two different memory location allocated.
+    Also, Comparing two JavaScript objects always returns false.
+--------------------------------------------------------------------------------------------------
+
 
 ➡️➡️➡️    🧶 Rope Strings (Concatenation Optimization):
 
