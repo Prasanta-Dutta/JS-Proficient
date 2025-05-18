@@ -10,14 +10,27 @@ function abcd() {
   
     function pqr() {
       var x = 10;
-      console.log("X in pqr: ", x);
+      console.log("X in pqr: ", x); //  10
     }
     pqr();
-    console.log("X in abcd: ", x);
+    console.log("X in abcd: ", x);  //  50
 }
 abcd();
 
 // console.log("X in pqr: ", x);  // It gives error bcs var does not exist in local scope
+
+
+function abcd2() {
+    var y = 50;
+  
+    function pqr2() {
+        y = 10;
+        console.log("Y in pqr: ", y);   //  10
+    }
+    pqr2();
+    console.log("Y in abcd: ", y);      //  10
+}
+abcd2();
 
 
 const person = { name: "Prasanta" };
@@ -129,7 +142,7 @@ console.log(person);        //  { name: 'Prasanta' }
         Memory Creation	        var a	                    a is created and set to undefined
         Execution (Line 2)	    console.log(a)	            Prints undefined
         Execution (Line 3)	    a = 5	                    Updates a from undefined to 5
-        Execution (Line 4)	                                console.log(a)	Prints 5
+        Execution (Line 4)	    console.log(a)	            Prints 5
         🧠 How Hoisting Works Visually
         👇 You write this:
 
